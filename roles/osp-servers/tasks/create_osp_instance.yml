@@ -2,17 +2,16 @@
 
 # Create osp server instances - only accepts a list input for looping
 
-      #meta: "group={{ item.value.meta.group }},deployment_name={{ item.value.meta.deployment_name }}"
-  - name: osp create server instance "{{ item.value.name }}"
+  - name: osp create server instance "{{ item.0.name }}"
     os_server:
       cloud: ospcloud
-      name: "{{ item.value.name }}"
-      state: "{{ item.value.state }}"
-      image: "{{ item.value.image }}"
-      meta: "{{ item.value.meta }}"
-      flavor: "{{ item.value.flavor }}"
-      security_groups: "{{ item.value.security_group }}"
-      key_name: "{{ item.value.key_name }}"
+      name: "{{ item.0.name }}"
+      state: "{{ item.0.state }}"
+      image: "{{ item.0.image }}"
+      meta: "group={{ item.1.group }},deployment_name={{ item.1.deployment_name }}"
+      flavor: "{{ item.0.flavor }}"
+      security_groups: "{{ item.0.security_group }}"
+      key_name: "{{ item.0.key_name }}"
       wait: yes
       nics:
       - net-name: int_network
@@ -24,12 +23,12 @@
         cp /tmp/internal.repo /etc/yum.repos.d/internal.repo
     register: instanceip
 
-  - name: osp add floating IP to "{{ item.value.name }}"
+  - name: osp add floating IP to "{{ item.0.name }}"
     os_floating_ip:
       cloud: ospcloud
       state: present
       reuse: yes
-      server: "{{ item.value.name }}"
+      server: "{{ item.0.name }}"
       network: ext_network
       wait: true
       timeout: 180
@@ -38,7 +37,7 @@
   - name: osp show "{{ instanceip }}" public IP
     debug: var=instancefloatingip.floating_ip.floating_ip_address
 
-  - name: osp wait for "{{ item.value.name }}" to be available
+  - name: osp wait for "{{ item.0.name }}" to be available
     wait_for:
       host: "{{ instancefloatingip.floating_ip.floating_ip_address }}"
       port: 22
