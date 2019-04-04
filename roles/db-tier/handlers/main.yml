@@ -1,2 +1,9 @@
 ---
 # handlers file for db-tier
+
+- name: postgres start
+  service:
+    name: postgresql.service
+    state: started
+  tags: [3tier,postgres,start]
+

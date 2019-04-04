@@ -1,2 +1,5 @@
 ---
 # defaults file for lb-tier
+
+haproxy_cfg_file: /etc/haproxy/haproxy.cfg
+

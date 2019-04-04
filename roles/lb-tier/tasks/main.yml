@@ -1,2 +1,23 @@
 ---
 # tasks file for lb-tier
+
+- name: frontend install required packages
+  package:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+     - httpie
+     - haproxy
+
+- name: frontend enable haproxy service
+  service:
+    name: haproxy
+    enabled: yes
+
+- name: frontend configure haproxy from template and restart service
+  template:
+    src: haproxy.cfg.j2
+    dest: "{{ haproxy_cfg_file }}"
+  notify:
+    - frontend restart haproxy
+

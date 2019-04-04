@@ -1,2 +1,22 @@
 ---
-# tasks file for db-tier
+
+- name: postgres install
+  package:
+    name: postgresql-server
+    state: latest
+  tags: [3tier,postgres,install]
+
+- name: postgres enable at boot
+  service:
+    name: postgresql
+    enabled: yes
+  tags: [3tier,postgres,service]
+
+- name: postgres initilise if postgres.conf does not exist
+  command: postgresql-setup initdb
+  args:
+    creates: "{{ postgres_conf_file }}"
+  notify: 
+    - start postgres
+  tags: [3tier,postgres,initialise]
+

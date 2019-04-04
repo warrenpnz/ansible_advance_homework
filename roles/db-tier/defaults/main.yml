@@ -1,2 +1,6 @@
 ---
 # defaults file for db-tier
+
+# This file is created during 'postgres initialise' which will only run if this file is absent
+postgres_conf_file: /var/lib/pgsql/data/postgresql.conf
+

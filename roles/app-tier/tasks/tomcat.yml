@@ -40,21 +40,3 @@
 
   notify: apps start tomcat
 
-
-- name: deploy apache
-  hosts: apps
-  gather_facts: false
-  become: true
-
-  tasks:
-  - name: install apache
-    yum:
-      name: httpd
-      state: latest
-
-  - name: enable apache at boot
-    service:
-      name: httpd
-      enabled: yes
-  notify: apps start apache
-
