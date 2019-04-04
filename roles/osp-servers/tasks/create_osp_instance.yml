@@ -8,7 +8,7 @@
       name: "{{ item.value.name }}"
       state: "{{ item.value.state }}"
       image: "{{ item.value.image }}"
-      meta: "group={{ item.value.group }},deployment_name={{ item.value.deployment_name }}"
+      meta: "group={{ item.value.meta.group }},deployment_name={{ item.value.meta.deployment_name }}"
       flavor: "{{ item.value.flavor }}"
       security_groups: "{{ item.value.security_group }}"
       key_name: "{{ item.value.key_name }}"
