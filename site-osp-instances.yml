@@ -1,4 +1,7 @@
+# Playbook to create osp servers 
+
 - hosts: workstation
   become: yes
   roles:
     - osp-servers
+
