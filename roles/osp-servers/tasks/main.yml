@@ -3,7 +3,7 @@
 # tasks file for osp.servers
 
 # Create osp servers in another task list as we can use a loop on include_tasks and not a block of tasks
-- include_tasks: create_instance.yml
+- include_tasks: create_osp_instance.yml
   loop: "{{ osp_servers | dict2items }}"
 
 
